@@ -38,7 +38,7 @@ exports.getpatientbyid = async (req, res, next) => {
         response.msg = "prueba en debug 1";
         response.result = patient;
     }catch(e){
-        response.succes = "false";
+        response.succes = false;
         response.mensaje = `El error es : ${e}`;
         next();
     }
