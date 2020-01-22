@@ -14,6 +14,10 @@ const pacientes_schema = new Schema({
         type: String,
         trim: true,
     },
+    telefono: {
+        type: String,
+        trim: true,
+    },
     hora: {
         type: String,
         trim: true,

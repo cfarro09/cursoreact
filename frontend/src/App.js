@@ -8,25 +8,28 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 function App() {
 
   const [citas, guardarCitas] = useState([]);
+  const [consultar, guardarConsulta] = useState(true);
   
   useEffect(() => {
     const consultarAPI = () => {
       clienteaxios.get('/pacientes')
         .then(res => {
           guardarCitas(res.data.result);
+          guardarConsulta(false);
         })
         .catch(e => {
           console.log(e)
         })
     }
-    consultarAPI();
-  }, [])
+    if(consultar)
+      consultarAPI();
+  }, [consultar])
   return (
     <Router>
       <Switch>
         
-        <Route exact path="/" component={() => <Pacientes citas={citas} />} />
-        <Route exact path="/nueva" component={NuevaCita}/>
+        <Route exact path="/" component={() => <Pacientes citas={citas}  />} />
+        <Route exact path="/nueva" component={() => <NuevaCita guardarConsulta={guardarConsulta} />  } />
         <Route exact path="/cita/:id" component={Cita}/>
 
       </Switch>
