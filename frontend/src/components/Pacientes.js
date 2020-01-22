@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react';
+import {Link} from 'react-router-dom'
 
 const Pacientes = ({citas}) => {
     if (citas.length === 0)
@@ -8,7 +9,7 @@ const Pacientes = ({citas}) => {
             <h1 className="my-5">Administrador de Pacientes</h1>
             <div className="container mt-5 py-5">
                 <div className="row">
-                    <button className="btn btn-outline-light mx-auto px-5 py-2">CREAR NUEVA CITA</button>
+                    <Link to={'/nueva'}  className="btn btn-outline-light mx-auto px-5 py-2">CREAR NUEVA CITA</Link>
                 </div>
                 <div className="col-md-8 mx-auto mt-5 ">
                     <div className="list-group">
