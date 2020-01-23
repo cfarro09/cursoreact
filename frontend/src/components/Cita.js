@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom'
 import clienteAxios from '../config/axios'
+import Swal from 'sweetalert2'
 
 const Cita = (props) => {
     const cita = props.cita;
@@ -11,11 +12,29 @@ const Cita = (props) => {
     }
 
     const eliminarcita = id => {
-        clienteAxios.delete(`/pacientes/${id}`)
-                .then(({res}) => {
-                    props.guardarConsulta(true)
-                    props.history.push("/")
-                })
+        Swal.fire({
+            title: '¿Estas seguro?',
+            text: "Una cita eliminada no se puede recuperar",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                clienteAxios.delete(`/pacientes/${id}`)
+                    .then(({ res }) => {
+                        props.guardarConsulta(true)
+                        props.history.push("/")
+                    })
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
+        })
     }
     return (
         <Fragment>
