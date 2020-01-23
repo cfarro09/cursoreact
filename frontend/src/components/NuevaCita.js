@@ -21,7 +21,9 @@ const NuevaCita = (props) => {
         e.preventDefault();
             console.log(cita)
             clienteAxios.post('/pacientes', cita)
-                .then(res => {
+                .then(({res}) => {
+                    console.log(res);
+                    
                     props.guardarConsulta(true)
                     props.history.push("/")
                 })

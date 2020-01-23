@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Pacientes from './components/Pacientes';
 import NuevaCita from './components/NuevaCita';
 import Cita from './components/Cita';
@@ -9,7 +9,7 @@ function App() {
 
   const [citas, guardarCitas] = useState([]);
   const [consultar, guardarConsulta] = useState(true);
-  
+
   useEffect(() => {
     const consultarAPI = () => {
       clienteaxios.get('/pacientes')
@@ -21,16 +21,27 @@ function App() {
           console.log(e)
         })
     }
-    if(consultar)
+    if (consultar)
       consultarAPI();
   }, [consultar])
   return (
     <Router>
       <Switch>
-        
-        <Route exact path="/" component={() => <Pacientes citas={citas}  />} />
-        <Route exact path="/nueva" component={() => <NuevaCita guardarConsulta={guardarConsulta} />  } />
-        <Route exact path="/cita/:id" component={Cita}/>
+
+        <Route exact path="/" component={() => <Pacientes citas={citas} />} />
+        <Route exact path="/nueva" component={() => <NuevaCita guardarConsulta={guardarConsulta} />} />
+        <Route
+          exact
+          path="/cita/:id"
+          render={(props) => {
+            const cita = citas.filter(x => x._id == props.match.params.id)[0];
+            
+            return(
+              <Cita cita={cita} guardarConsulta={guardarConsulta}/>
+            )
+            
+          }}
+         />
 
       </Switch>
     </Router>
