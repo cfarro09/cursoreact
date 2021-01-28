@@ -8,7 +8,7 @@
   "author": "cf",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^7.1.10"
+    "electron": "^9.4.0"
   },
   "dependencies": {},
   "description": ""
